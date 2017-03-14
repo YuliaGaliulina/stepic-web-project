@@ -2,7 +2,7 @@ import re
 
 def app(environ, start_response):
     qs = environ['QUERY_STRING']
-    pattern = r"[0-9a-z]+=[0-9a-z]+"
+    pattern = r"[0-9A-Za-z]+=[0-9A-za-z]+"
     result = []
     if re.search(pattern, qs):
         result = re.findall(pattern, qs)
