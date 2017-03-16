@@ -12,7 +12,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'wz3@gtuiq^!nqv6yq+p594cu_1!_rk*##ptd&l$n7s#4=%1@l&'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 ALLOWED_HOSTS = ['127.0.0.1', '0.0.0.0']
 
 
@@ -94,7 +94,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'ru-ru'
 
-TIME_ZONE = 'Asia/Yekaterinburg'
+TIME_ZONE = 'Europe/Moscow'
 
 USE_I18N = True
 
