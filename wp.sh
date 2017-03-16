@@ -6,3 +6,5 @@ sudo /etc/init.d/nginx restart
 sudo /etc/init.d/mysql start
 cd ~/web
 gunicorn -b 0.0.0.0:8080 hello:app -D
+cd ~/web/ask
+gunicorn -b 0.0.0.0:8000 ask.wsgi:application -D
