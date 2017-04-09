@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block content %}
+{% for question in object_list %}
+  {{ question.title }}
+  <h2><a href="{% url 'question_detail' pk=question.pk %}">{{ question.title }}</a></h2>
+  {% endfor %}
+{% endblock %}
+
+

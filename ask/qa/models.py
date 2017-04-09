@@ -1,26 +1,32 @@
 from django.db import models
 from django.contrib.auth.models import User
 
-
 class QuestionManager(models.Manager):
     def new(self):
-        return self.filter(added_at__lte=auto_now_add())
+        return self.order_by('-added_at')
     def popular(self):
-        return self.filter(rating__gt)
+        return self.order_by('-rating')
 
+    
 class Question(models.Model):
-    objects = QuestionManager()
     author = models.ForeignKey(User)
     text = models.TextField()
     title = models.CharField(max_length=200)
     added_at = models.DateTimeField(blank=True, auto_now_add=True)
     rating = models.IntegerField(default=0)
     likes = models.ManyToManyField(User, blank=True, related_name='question_like_user')
+    objects = QuestionManager()
+    
+    def __str__(self):
+        return self.title
+
 
 class Answer(models.Model):
     text = models.TextField()
     added_at = models.DateTimeField(blank=True, auto_now_add=True)
-    question = models.ForeignKey(Question)
+    question = models.ForeignKey('Question', related_name='answers')
     author = models.ForeignKey(User)
 
+    def __str__(self):
+        return self.text
 

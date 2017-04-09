@@ -1,14 +1,16 @@
 from django.conf.urls import url
 from . import views
+from .views import QuestionNewList, QuestionPopularList, QuestionDetail
+
 
 urlpatterns = [
-    url(r'^$', views.test, name='home'),
     url(r'^login/', views.test, name='login'),
     url(r'^signup/', views.test, name='signup'),
     url(r'^ask/', views.test, name='ask'),
-    url(r'^popular/', views.test, name='popular'),
-    url(r'^new/', views.test, name='new'),
-    url(r'^question/(?P<pk>\d+)/$', views.test, name='question'),
+    url(r'^$', QuestionNewList.as_view(), name='new'),
+    url(r'^popular/', QuestionPopularList.as_view(), name='popular'),
+    url(r'^question/(?P<pk>\d+)/$', QuestionDetail.as_view(), name='question_detail'),
+   
+    
 ]
-
 

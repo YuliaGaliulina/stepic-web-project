@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block content %}
+<div>
+    {{ question.title }}
+</div>
+<div>
+    {{ question.text }}
+</div>
+<div>
+    {% for answer in question.answers.all %}
+      {{ answer.text }}
+    {% endfor %}
+</div>
+{% endblock %}
+
