@@ -9,7 +9,6 @@
 <form action="" method="POST">
     {{ form }}
     {% csrf_token %}
-    <input type="hidden" name="next" value="{{ request.path }}">
     <input type="submit">
 </form>
 {% endblock %}

@@ -5,7 +5,6 @@ from django.contrib.auth.models import User
 from django.shortcuts import resolve_url, redirect
 from .forms import AskForm, AnswerForm
 from django.core.urlresolvers import reverse
-from django.http import HttpResponseRedirect
 
 class QuestionNewList(ListView):
 
@@ -49,6 +48,7 @@ class QuestionDetail(DetailView, AnswerView):
         form = self.form_class(request.POST)
         if form.is_valid():
             form.instance.author = self.request.user
+            form.instance.question = Question.objects.get(pk=self.kwargs['pk'])
         super(AnswerView, self).form_valid(form)
         return redirect(self.request.path) 
 
