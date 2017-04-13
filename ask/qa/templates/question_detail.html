@@ -1,15 +1,16 @@
 {% extends "base.html" %}
 {% block content %}
-<div>
-    {{ question.title }}
-</div>
-<div>
-    {{ question.text }}
-</div>
-<div>
-    {% for answer in question.answer_set.all %}
+<div>{{ question.title }}</div>
+<div>{{ question.text }}</div>
+<div>{% for answer in question.answer_set.all %}
       {{ answer.text }}
     {% endfor %}
 </div>
+<form action="" method="POST">
+    {{ form }}
+    {% csrf_token %}
+    <input type="hidden" name="next" value="{{ request.path }}">
+    <input type="submit">
+</form>
 {% endblock %}
 
