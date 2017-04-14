@@ -7,6 +7,15 @@ class AskForm(forms.ModelForm):
         model = Question
         fields = ['title', 'text']
 
+    def clean(self):
+        return self.cleaned_data
+
+    def save(self):
+        question = Question(**self.cleaned_data)
+        question.save()
+        return question
+
+    
 class AnswerForm(forms.ModelForm):
     class Meta:
         model = Answer
