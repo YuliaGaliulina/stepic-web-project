@@ -6,15 +6,15 @@ class AskForm(forms.ModelForm):
     class Meta:
         model = Question
         fields = ['title', 'text']
-
+        
     def clean(self):
         return super(AskForm, self).clean()
-
+    
     def save(self):
         question = Question(**self.cleaned_data)
+        question.author = self.instance.author
         question.save()
         return question
-
     
 class AnswerForm(forms.ModelForm):
     
@@ -24,9 +24,10 @@ class AnswerForm(forms.ModelForm):
 
     def clean(self):
         return super(AnswerForm, self).clean()
-
+    
     def save(self):
         answer = Answer(**self.cleaned_data)
-        question.save()
-        return question
+        answer.author = self.instance.answer
+        answer.save()
+        return answer
         

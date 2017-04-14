@@ -46,12 +46,7 @@ class QuestionDetail(DetailView, AnswerView):
     
     def post(self, request, *args, **kwargs):
         form = self.form_class(request.POST)
-        if form.is_valid():
-            if self.request.user:
-                form.instance.author = self.request.user
-            else:
-                form.instance.author = "Anonymous"
-            form.instance.question = Question.objects.get(pk=self.kwargs['pk'])
+        form.instance.question = Question.objects.get(pk=self.kwargs['pk'])
         super(AnswerView, self).form_valid(form)
         return redirect(self.request.path) 
 
@@ -61,7 +56,6 @@ class AskCreate(CreateView):
     template_name = 'ask.html'
 
     def form_valid(self, form):
-        form.instance.author = self.request.user
         return super(AskCreate, self).form_valid(form)
     
     def get_success_url(self):
