@@ -1,10 +1,8 @@
 from django.views.generic import ListView, DetailView, CreateView, FormView
 from .models import Question
 from django.core.paginator import Paginator
-from django.contrib.auth.models import User
-from django.shortcuts import resolve_url, redirect
+from django.shortcuts import redirect
 from .forms import AskForm, AnswerForm
-from django.core.urlresolvers import reverse
 
 class QuestionNewList(ListView):
 
@@ -46,7 +44,9 @@ class QuestionDetail(DetailView, AnswerView):
     
     def post(self, request, *args, **kwargs):
         form = self.form_class(request.POST)
-        form.instance.question = Question.objects.get(pk=self.kwargs['pk'])
+        if form.is_valid():
+            form.instance.author = self.request.user
+            form.instance.question = Question.objects.get(pk=self.kwargs['pk'])
         super(AnswerView, self).form_valid(form)
         return redirect(self.request.path) 
 
@@ -59,6 +59,7 @@ class AskCreate(CreateView):
         return super(AskCreate, self).form_valid(form)
     
     def get_success_url(self):
-        return resolve_url('question_detail', pk=self.object.pk)
+        return redirect('question_detail', pk=self.object.pk)
+
 
 

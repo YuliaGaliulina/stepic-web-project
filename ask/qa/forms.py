@@ -21,13 +21,3 @@ class AnswerForm(forms.ModelForm):
     class Meta:
         model = Answer
         fields = ['text', 'question']
-
-    def clean(self):
-        return super(AnswerForm, self).clean()
-    
-    def save(self):
-        answer = Answer(**self.cleaned_data)
-        answer.author = self.instance.answer
-        answer.save()
-        return answer
-        
